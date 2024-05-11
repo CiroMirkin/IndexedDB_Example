@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IndexedDB CRUD</title>
+    <!-- Bulma Styles -->
+    <!-- Docs: https://bulma.io/documentation/ -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
+</head>
+<body>
+    <main class="content container" style="margin-top: 2rem;">
+        <form id="createTaskForm">
+            <input class="input" type="text" placeholder="Task description" required />
+            <input class="button" type="submit" value="Add" />
+        </form>
+        <ul id="taskList"></ul>
+    </main>
+
+    <script src="./main.js"></script>
+</body>
+</html>
