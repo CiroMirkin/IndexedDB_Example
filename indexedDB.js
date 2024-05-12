@@ -1,10 +1,22 @@
 class IndexedDB {
-    constructor(objectStoreName) {
+    constructor(DBName, objectStoreName) {
         this.objectStoreName = objectStoreName
+        this.DB_Request = indexedDB.open(DBName, 1)
+        initDB()
+    }
+
+    initDB() {
+        // Verifica si la DB hay que crearla
+        this.DB_Request.addEventListener('upgradeneeded', () =>{
+            const db = this.DB_Request.result 
+            db.createObjectStore(objectStoreName, {
+                autoIncrement: true
+            })
+        })
     }
 
     saveObject(obj) {
-        const db = IDBRequest.result
+        const db = this.DB_Request.result
         const IDBTransaction = db.transaction(this.objectStoreName, 'readwrite')
         const objectStore = IDBTransaction.objectStore(this.objectStoreName)
         objectStore.add(obj)
@@ -13,7 +25,7 @@ class IndexedDB {
     }
 
     readObject() {
-        const db = IDBRequest.result
+        const db = this.DB_Request.result
         const IDBTransaction = db.transaction(this.objectStoreName, 'readonly')
         const objectStore = IDBTransaction.objectStore(this.objectStoreName)
     
@@ -35,7 +47,7 @@ class IndexedDB {
     }
 
     deleteObject(objectKey) {
-        const db = IDBRequest.result
+        const db = this.DB_Request.result
         const IDBTransaction = db.transaction(this.objectStoreName, 'readwrite')
         const objectStore = IDBTransaction.objectStore(this.objectStoreName)
     
