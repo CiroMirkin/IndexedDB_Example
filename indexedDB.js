@@ -2,11 +2,6 @@ class IndexedDB {
     constructor(DBName, objectStoreName) {
         this.objectStoreName = objectStoreName
         this.DB_Request = indexedDB.open(DBName, 1)
-        initDB()
-    }
-
-    initDB() {
-        // Verifica si la DB hay que crearla
         this.DB_Request.addEventListener('upgradeneeded', () =>{
             const db = this.DB_Request.result 
             db.createObjectStore(objectStoreName, {
@@ -24,7 +19,7 @@ class IndexedDB {
         IDBTransaction.addEventListener('complete', () => console.log('Sin errores al guardar.'))
     }
 
-    readObject() {
+    readObject(showCallBack) {
         const db = this.DB_Request.result
         const IDBTransaction = db.transaction(this.objectStoreName, 'readonly')
         const objectStore = IDBTransaction.objectStore(this.objectStoreName)
@@ -41,6 +36,7 @@ class IndexedDB {
                 }
                 taskList.push(task)
             } else {
+                showCallBack(taskList)
                 return taskList
             }
         })
