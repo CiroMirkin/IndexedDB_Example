@@ -1,4 +1,9 @@
 class IndexedDB {
+    /** 
+     * Esta clase facilita el uso de IndexedDB.
+     * @param {string} DBName El nombre de la base de datos.
+     * @param {string} objectStoreName El nombre del registro donde se guardaran los datos.
+     */
     constructor(DBName, objectStoreName) {
         this.objectStoreName = objectStoreName
         this.DB_Request = indexedDB.open(DBName, 1)
@@ -10,6 +15,7 @@ class IndexedDB {
         })
     }
 
+    /** Este método recibe un objecto el cual sera guardado */
     saveObject(obj) {
         const db = this.DB_Request.result
         const IDBTransaction = db.transaction(this.objectStoreName, 'readwrite')
@@ -19,6 +25,7 @@ class IndexedDB {
         IDBTransaction.addEventListener('complete', () => console.log('Sin errores al guardar.'))
     }
 
+    /** Este método recibe un callback que recibirá el arreglo u objeto que se allá guardado */
     readObject(showCallBack) {
         const db = this.DB_Request.result
         const IDBTransaction = db.transaction(this.objectStoreName, 'readonly')
@@ -42,6 +49,7 @@ class IndexedDB {
         })
     }
 
+    /** Este método recibe la key del objeto que se quiere eliminar y lo elimina */
     deleteObject(objectKey) {
         const db = this.DB_Request.result
         const IDBTransaction = db.transaction(this.objectStoreName, 'readwrite')
